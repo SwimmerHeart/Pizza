@@ -3,22 +3,24 @@ import { createSlice } from '@reduxjs/toolkit'
 export const filterSlice = createSlice({
     name: 'filter',
     initialState: {
-        value: 0
+        categoryId: 0,
+        sortType: {name: 'популярности', sortProperty : 'rating'},
+        currentPage: 1
     },
     reducers: {
-        increment: state => {
-            state.value += 1
+        setCategoryId: (state, action) => {
+               state.categoryId = action.payload
         },
-        decrement: state => {
-            state.value -= 1
+        setSortType: (state, action)=> {
+            state.sortType = action.payload
         },
-        incrementByAmount: (state, action) => {
-            state.value += action.payload
+        setCurrentPage: (state, action) => {
+            state.currentPage = action.payload
         }
     }
 })
 
 // Action creators are generated for each case reducer function
-export const { increment, decrement, incrementByAmount } = filterSlice.actions
+export const { setCategoryId, setSortType, setCurrentPage } = filterSlice.actions
 
 export default filterSlice.reducer

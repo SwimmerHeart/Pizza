@@ -1,13 +1,15 @@
 
-export function Categories({categoryId, setCategoryId}) {
+export function Categories({categoryId, onChangeCategoryId}) {
+    const categories = ['Все', 'Мясные', 'Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
 
-    const categories = ['Все', 'Мясные','Вегетарианская', 'Гриль', 'Острые', 'Закрытые']
-    return(
+    return (
         <div className="categories">
             <ul>
-                {categories.map((item, index)=><li key={index}
-                                                   className={categoryId === index ? 'active' : ''}
-                                                   onClick={()=>{setCategoryId(index)}}
+                {categories.map((item, index) => <li key={index}
+                                                     className={categoryId === index ? 'active' : ''}
+                                                     onClick={() => {
+                                                         onChangeCategoryId(index)
+                                                     }}
                 >{item}</li>)}
             </ul>
         </div>
