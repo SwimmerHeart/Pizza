@@ -1,6 +1,7 @@
 import styles from './Errors.module.scss'
+import React from "react";
 
-function ErrorsBlock() {
+const ErrorsBlock:React.FC = () => {
     return (
         <div className={styles.root} >
             <h1>Ничего не найдено :(</h1>

@@ -1,30 +1,35 @@
-import {useEffect, useState} from "react";
+import React, {useEffect, useState} from "react";
 import {useNavigate, useParams} from "react-router-dom";
 import axios from "axios";
 
-function FullPizza() {
-    const [pizza, setPizza] = useState()
+const FullPizza:React.FC = () => {
+    const [pizza, setPizza] = useState<{
+        imageUrl: string
+        title: string
+        price: number
+    }>()
     const {id} = useParams()
     const navigate = useNavigate()
-    useEffect(()=>{
+    useEffect(() => {
         async function fetchPizza() {
-            try{const {data} = await axios.get(`https://6357e538c26aac906f3577a5.mockapi.io/items/${id}`)
+            try {
+                const {data} = await axios.get(`https://6357e538c26aac906f3577a5.mockapi.io/items/${id}`)
                 setPizza(data)
-            }
-            catch {
+            } catch {
                 console.log('ошибка получения данных пиццы')
                 navigate('/')
             }
-           }
+        }
+
         fetchPizza()
-    },[])
-    if (!pizza){
+    }, [])
+    if (!pizza) {
         return (
-            <p style={{textAlign:'center'}}>Загрузка...</p>
+            <p style={{textAlign: 'center'}}>Загрузка...</p>
         )
     }
     return (
-        <div className="container" style={{textAlign:'center'}}>
+        <div className="container" style={{textAlign: 'center'}}>
             <img src={pizza.imageUrl} alt="pizza-img"/>
             <h2>{pizza.title}</h2>
             <h4>от {pizza.price} ₽</h4>

@@ -32,7 +32,7 @@ export const cartSlice = createSlice({
                 return acc + item.price * item.count
             }, 0)
         },
-        clearItem: (state, action) => {
+        clearItem: (state) => {
             state.totalPrice = 0
             state.items = []
         },

@@ -1,11 +1,12 @@
+import React from "react";
 import {Link, useLocation} from "react-router-dom";
 import {Search} from "./Search";
 import {useSelector} from "react-redux";
 import {selectCart} from "../redux/slices/cartSlice";
 
-export function Header() {
+export const Header:React.FC = () => {
     const {items, totalPrice} = useSelector(selectCart)
-    const totalCount = items.reduce((acc, item)=>acc+item.count,0)
+    const totalCount = items.reduce((acc:number, item:any)=>acc+item.count,0)
     const location = useLocation()
     return (
         <div className="header">

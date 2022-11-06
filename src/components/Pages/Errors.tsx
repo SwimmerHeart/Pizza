@@ -1,6 +1,7 @@
 import ErrorsBlock from "./ErrorsBlock";
+import React from "react";
 
-function Errors() {
+const Errors:React.FC = () => {
     return (
         <>
             <ErrorsBlock/>

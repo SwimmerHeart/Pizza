@@ -2,7 +2,7 @@ import {Categories} from "../Categories";
 import Sort, {list} from "../Sort";
 import Skeleton from "../PizzaBlock/Skeleton";
 import {PizzaBlock} from "../PizzaBlock";
-import {useEffect, useRef} from "react";
+import React, {useEffect, useRef} from "react";
 import {useSelector, useDispatch} from 'react-redux'
 import {setCategoryId, setCurrentPage, setFilters} from "../../redux/slices/filterSlice";
 import Pagination from "../Pagination";
@@ -10,10 +10,20 @@ import qs from "qs";
 import {useNavigate} from "react-router-dom";
 import {fetchPizzas} from "../../redux/slices/pizzaSlice";
 
+type fetchPizzasProps = {
+    sortBy: string
+    order: string
+    search: string
+    category: string
+    currentPage: number
+    basicUrl: string
+}
 
-function Home() {
-    const {categoryId, sortType, currentPage, searchValue} = useSelector(state => state.filter)
-    const {items, status} = useSelector(state => state.pizzas)
+const Home: React.FC = () => {
+    const {categoryId, sortType, currentPage, searchValue} = useSelector(state =>//@ts-ignore
+        state.filter)
+    const {items, status} = useSelector(state => //@ts-ignore
+        state.pizzas)
     const dispatch = useDispatch()
     // const isSearchRef = useRef(false)
     const isMounted = useRef(false)
@@ -27,7 +37,8 @@ function Home() {
         const search = searchValue ? `${searchValue}` : ''
         const category = categoryId > 0 ? `category=${categoryId}` : ''
 
-        dispatch(fetchPizzas({sortBy, order, search, category, currentPage, basicUrl}))
+        dispatch(//@ts-ignore
+            fetchPizzas({sortBy, order, search, category, currentPage, basicUrl}))
     }
     useEffect(() => {
         if (isMounted.current) {
@@ -74,10 +85,10 @@ function Home() {
         // console.log('закидываем данные в redux setFilters', 'isSearchRef')
     }, [])
 
-    const onChangeCategoryId = (id) => {
+    const onChangeCategoryId = (id: number) => {
         dispatch(setCategoryId(id))
     }
-    const onChangePage = (number) => {
+    const onChangePage = (number: number) => {
         dispatch(setCurrentPage(number))
     }
     // const pizzas = items.filter(item=>item.title.toLowerCase().includes(searchValue.toLowerCase()))
@@ -96,7 +107,7 @@ function Home() {
                 </div> :
                 <div className="content__items">
                     {status === 'loading' ? [...new Array(6)].map((_, index) => <Skeleton key={index}/>)
-                        : items.map((pizza) => <PizzaBlock key={pizza.id} {...pizza}/>)
+                        : items.map((pizza:any) => <PizzaBlock key={pizza.id} {...pizza}/>)
                     }
                 </div>}
             <Pagination onChangePage={onChangePage} currentPage={currentPage}/>
