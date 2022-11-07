@@ -1,8 +1,10 @@
 import React from 'react';
 import {useState} from "react";
-import {useDispatch, useSelector} from "react-redux";
-import {addItem} from "../../redux/slices/cartSlice";
+import {useSelector} from "react-redux";
+import {addItem, CartItem} from "../../redux/slices/cartSlice";
 import {Link} from "react-router-dom";
+import {RootState, useAppDispatch} from "../../redux/store";
+import {PizzaItem} from "../../redux/slices/pizzaSlice";
 
 type PizzaBlockProps = {
     imageUrl : string
@@ -10,24 +12,24 @@ type PizzaBlockProps = {
     types : number[]
     sizes : number[]
     price : number
-    id : number
+    id : string
 }
 
-export const PizzaBlock:React.FC<PizzaBlockProps> = ({imageUrl, title, types, sizes, price, id}) => {
+export const PizzaBlock:React.FC<PizzaItem> = ({imageUrl, title, types, sizes, price, id}) => {
     const [activeType, setActiveType] = useState(0)
     const [activeSize, setActiveSize] = useState(0)
-    const dispatch = useDispatch()
-    const count = useSelector(state =>//@ts-ignore
-        state.cart.items.find(item => item.id === id))
+    const dispatch = useAppDispatch()
+    const count = useSelector((state:RootState) =>state.cart.items.find(item => item.id === id))
     const addedCount = count ? count.count : 0
-    const addPizzas = (id:number) => {
-        const item = {
+    const addPizzas = (id:string) => {
+        const item:CartItem = {
             id,
             price,
             title,
             imageUrl,
             type: activeType,
-            size: sizes[activeSize]
+            size: sizes[activeSize],
+            count: 0
         }
         dispatch(addItem(item))
     }
