@@ -2,7 +2,7 @@ import {addItem, CartItem, minusItem, removeItem} from "../../redux/slices/cartS
 import React from "react";
 import {useAppDispatch} from "../../redux/store";
 
-type CartItemProps = {
+export type CartItemProps = {
     id: string
     title: string
     type: number
@@ -24,7 +24,6 @@ const CartItemBlock: React.FC<CartItemProps> = ({id, title, type, size, count, p
         if (window.confirm('Действительно хочешь удалить товар?')) {
             dispatch(removeItem(id))
         }
-
     }
     return (
         <div className="cart__item">

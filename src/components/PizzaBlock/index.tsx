@@ -6,15 +6,6 @@ import {Link} from "react-router-dom";
 import {RootState, useAppDispatch} from "../../redux/store";
 import {PizzaItem} from "../../redux/slices/pizzaSlice";
 
-type PizzaBlockProps = {
-    imageUrl : string
-    title : string
-    types : number[]
-    sizes : number[]
-    price : number
-    id : string
-}
-
 export const PizzaBlock:React.FC<PizzaItem> = ({imageUrl, title, types, sizes, price, id}) => {
     const [activeType, setActiveType] = useState(0)
     const [activeSize, setActiveSize] = useState(0)

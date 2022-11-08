@@ -20,7 +20,6 @@ const FullPizza:React.FC = () => {
                 navigate('/')
             }
         }
-
         fetchPizza()
     }, [])
     if (!pizza) {
